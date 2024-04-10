@@ -16,13 +16,16 @@ ROIFolder = r"C:\Users\adam\OneDrive - University College London\UCL PhD\PhD Yea
 # Define b value
 b=2000
 
+# Define direction
+direction = 'z'
+
 # Define ROI number
 ROINum = 5
 
 
 # Read image
-bImage = sitk.GetArrayFromImage(sitk.ReadImage(f'{ImageFolder}/normb{b}.mha'))
-# bImage = sitk.GetArrayFromImage(sitk.ReadImage(f'{ImageFolder}/b{b}.mha'))
+# bImage = sitk.GetArrayFromImage(sitk.ReadImage(f'{ImageFolder}/normb{b}.mha'))
+bImage = sitk.GetArrayFromImage(sitk.ReadImage(f'{ImageFolder}/normb{b}{direction}.mha'))
 
 # Read ROI
 ROI = sitk.GetArrayFromImage(sitk.ReadImage(f'{ROIFolder}/ROI{ROINum}.img'))
@@ -38,12 +41,12 @@ ROIValsFolder = r"C:\Users\adam\OneDrive - University College London\UCL PhD\PhD
 
 
 try:
-    os.makedirs(f'{ROIValsFolder}/b{b}')
+    os.makedirs(f'{ROIValsFolder}/b{b}{direction}')
 except:
     None
 
 savemat(
-    f'{ROIValsFolder}/b{b}/ROI{ROINum}.mat',
+    f'{ROIValsFolder}/b{b}{direction}/ROI{ROINum}.mat',
     dict(zip(['ROIvals'], [ROIvals]))
 )
 
